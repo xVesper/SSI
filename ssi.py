@@ -29,7 +29,7 @@ def data_load():
 
     return df
 
-print(data_load())
+#print(data_load())
 
 def draw_smile():
 
@@ -65,6 +65,12 @@ def list_classes(df):
 
 x1 = data_load()['petal_length_in_cm']
 y1 = data_load()['petal_width_in_cm']
+x2 = data_load()['sepal_width_in_cm']
+y2 = data_load()['petal_width_in_cm']
+x3 = data_load()['sepal_length_in_cm']
+y3 = data_load()['petal_width_in_cm']
+x4 = data_load()['sepal_width_in_cm']
+y4 = data_load()['petal_length_in_cm']
 classes = data_load()['class']
 
 unique_classes  = np.unique(classes)
@@ -72,10 +78,24 @@ names = ['Setosa', 'Versicolor', 'Virginica']
 
 colors = ['red', 'blue', 'green']
 
-for i, clas in enumerate(unique_classes):
-    plt.scatter(x1[classes == clas], y1[classes == clas], label=names[i], color=colors[i])
+fig, axs = plt.subplots(2, 2, figsize=(12, 10))
 
-plt.xlabel('petal_length_in_cm')
-plt.ylabel('petal_width_in_cm')
-plt.legend()
-#plt.show()
+for i, clas in enumerate(unique_classes):
+    axs[0, 0].scatter(x1[classes == clas], y1[classes == clas], label=names[i], color=colors[i])
+    axs[0, 0].set_xlabel('petal_length_in_cm')
+    axs[0, 0].set_ylabel('petal_width_in_cm')
+    axs[0, 0].legend()
+    axs[0, 1].scatter(x2[classes == clas], y2[classes == clas], label=names[i], color=colors[i])
+    axs[0, 1].set_xlabel('petal_length_in_cm')
+    axs[0, 1].set_ylabel('petal_width_in_cm')
+    axs[0, 1].legend()
+    axs[1, 0].scatter(x3[classes == clas], y3[classes == clas], label=names[i], color=colors[i])
+    axs[1, 0].set_xlabel('petal_length_in_cm')
+    axs[1, 0].set_ylabel('petal_width_in_cm')
+    axs[1, 0].legend()
+    axs[1, 1].scatter(x4[classes == clas], y4[classes == clas], label=names[i], color=colors[i])
+    axs[1, 1].set_xlabel('petal_length_in_cm')
+    axs[1, 1].set_ylabel('petal_width_in_cm')
+    axs[1, 1].legend()
+
+plt.show()
