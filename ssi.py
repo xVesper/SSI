@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
 from math import pi
 import numpy as np
-import random
 
 from pandas.errors import EmptyDataError
 
@@ -60,8 +59,6 @@ def list_classes(df):
         if x not in classes:
             classes.append(x)
         return classes
-
-#pierwsza seria
 
 x1 = data_load()['petal_length_in_cm']
 y1 = data_load()['petal_width_in_cm']
