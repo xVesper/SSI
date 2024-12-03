@@ -24,7 +24,7 @@ def data_load():
 
     return df
 
-# data_load()
+data_load()
 
 def draw_smile():
 
@@ -46,7 +46,7 @@ def draw_smile():
     ax.legend(loc='center right', bbox_to_anchor=(1.5, 0.5))
     plt.show()
 
-# draw_smile()
+draw_smile()
 
 def list_classes(df):
     classes_col = df['class']
@@ -91,7 +91,7 @@ for i, clas in enumerate(unique_classes):
     axs[1, 1].set_ylabel('petal_length_in_cm')
     axs[1, 1].legend()
 
-# plt.show()
+plt.show()
 
 def k_sre():
     data_points = np.loadtxt('spirala.txt')
@@ -130,40 +130,40 @@ def k_sre():
     plt.legend()
     plt.show()
 
-#k_sre()
+k_sre()
 
 def algorithm():
 
-    zakres_zmiennosci = [0, 100]
+    variation_range = [0, 100]
 
-    x_plot = np.linspace(zakres_zmiennosci[0], zakres_zmiennosci[1], 1000)
+    x_plot = np.linspace(variation_range[0], variation_range[1], 1000)
     y_plot = np.sin(x_plot/10)*np.sin(x_plot/200)
 
-    x = np.random.uniform(zakres_zmiennosci[0], zakres_zmiennosci[1])
+    x = np.random.uniform(variation_range[0], variation_range[1])
     y = np.sin(x / 10) * np.sin(x / 200)
 
-    rozrzut = 10
-    wsp_przyrostu = 1.1
-    iteracja = 100
+    dispersion = 10
+    increment_coefficient = 1.1
+    iteration = 100
 
-    for _ in range(iteracja):
-        x_pot = x + np.random.uniform(-rozrzut, rozrzut)
+    for _ in range(iteration):
+        x_pot = x + np.random.uniform(-dispersion, dispersion)
 
-        if x_pot > zakres_zmiennosci[1]:
-            x_pot = zakres_zmiennosci[1]
-        elif x_pot < zakres_zmiennosci[0]:
-            x_pot = zakres_zmiennosci[0]
+        if x_pot > variation_range[1]:
+            x_pot = variation_range[1]
+        elif x_pot < variation_range[0]:
+            x_pot = variation_range[0]
 
         y_pot = np.sin(x_pot / 10) * np.sin(x_pot / 200)
 
         if y_pot >= y:
             x = x_pot
             y = y_pot
-            rozrzut *= wsp_przyrostu
+            dispersion *= increment_coefficient
         else:
-            rozrzut /= wsp_przyrostu
+            dispersion /= increment_coefficient
         plt.scatter(x, y, color='k', label=f'({x:.2f}, {y:.2f})')
-        print('nr iteracji: ', _, ": ", x,y, rozrzut)
+        print('nr iteracji: ', _, ": ", x,y, dispersion)
 
     plt.plot(x_plot, y_plot, linestyle='-', color='k', label='Funkcja')
     plt.scatter(x, y, color='r', label=f'({x:.2f}, {y:.2f})', marker=".", linewidths=5)
@@ -173,4 +173,4 @@ def algorithm():
     plt.grid(True)
     plt.show()
 
-#algorithm()
+algorithm()
