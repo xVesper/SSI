@@ -94,31 +94,38 @@ for i, clas in enumerate(unique_classes):
 # plt.show()
 
 def k_sre():
+    data_points = np.loadtxt('spirala.txt')
 
-    data = np.loadtxt('spirala.txt')
-    n = 4
-    iter = 100
+    num_clusters = 4
+    max_iterations = 100
 
-    middle = data[np.random.choice(data.shape[0], n, replace=False)]
+    centroids = data_points[np.random.choice(data_points.shape[0], num_clusters, replace=False)]
 
-    for _ in range(iter):
-        distances = np.zeros((data.shape[0], n))
+    for _ in range(max_iterations):
+        distances = np.zeros((data_points.shape[0], num_clusters))
 
-        for i in range(data.shape[0]):
-            for k in range(n):
-                distances[i, k] = np.sqrt(np.sum((data[i] - middle[k]) ** 2))
-        labels = np.argmin(distances, axis=1)
+        for point_idx in range(data_points.shape[0]):
+            for cluster_idx in range(num_clusters):
+                distances[point_idx, cluster_idx] = np.sqrt(
+                    np.sum((data_points[point_idx] - centroids[cluster_idx]) ** 2))
 
-        new_middle = np.array([data[labels == i].mean(axis=0) for i in range(n)])
-        if np.all(middle == new_middle):
+        cluster_labels = np.argmin(distances, axis=1)
+
+        new_centroids = np.array(
+            [data_points[cluster_labels == cluster_idx].mean(axis=0) for cluster_idx in range(num_clusters)])
+
+        if np.all(centroids == new_centroids):
             break
 
-        middle = new_middle
+        centroids = new_centroids
 
     plt.figure(figsize=(8, 6))
-    for i in range(n):
-        plt.scatter(data[labels == i][:, 0], data[labels == i][:, 1], s=20, alpha=.70, label=f'Klaster {i + 1}')
-    plt.scatter(new_middle[:, 0], new_middle[:, 1], color='red', s=100, marker='x', label='Środki', linewidths=2)
+    for cluster_idx in range(num_clusters):
+        plt.scatter(data_points[cluster_labels == cluster_idx][:, 0],
+                    data_points[cluster_labels == cluster_idx][:, 1],
+                    s=20, alpha=.70, label=f'Klaster {cluster_idx + 1}')
+    plt.scatter(new_centroids[:, 0], new_centroids[:, 1], color='red', s=100, marker='x', label='Centroidy',
+                linewidths=2)
     plt.title("K-Średnich")
     plt.legend()
     plt.show()
